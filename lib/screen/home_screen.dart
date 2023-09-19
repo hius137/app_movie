@@ -1,6 +1,7 @@
 import 'package:app_movie/model/movie_model.dart';
 import 'package:app_movie/utils/app_image.dart';
-import 'package:app_movie/utils/custom_thumbnail.dart';
+import 'package:app_movie/widget/custom_thumbnail.dart';
+import 'package:app_movie/widget/text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,35 +19,33 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<MovieModel> listMovie = List.of(dataImage);
   int currentIndex = 0;
-  
+
   Widget slide(List<MovieModel> listMovie) {
-    return Container(
-      child: CarouselSlider.builder(
-        options: CarouselOptions(
+    return CarouselSlider.builder(
+      options: CarouselOptions(
           height: 141,
           enlargeCenterPage: true,
           onPageChanged: (index, choise) {
             setState(() {
               currentIndex = index;
             });
-          }
-        ),
-        itemCount: listMovie.length,
-        itemBuilder: (context, index, realIndex) {
-          return CustomThumbnail(
-              imageMovie: listMovie[index].image.toString(),
-              nameMovie: listMovie[index].name.toString());
-        },
-      ),
+          }),
+      itemCount: listMovie.length,
+      itemBuilder: (context, index, realIndex) {
+        return CustomThumbnail(
+            imageMovie: listMovie[index].image.toString(),
+            nameMovie: listMovie[index].name.toString());
+      },
     );
   }
-  Widget dotSlide(){
+
+  Widget dotSlide() {
     return AnimatedSmoothIndicator(
-      activeIndex:  currentIndex,
+      activeIndex: currentIndex,
       count: listMovie.length,
-      effect: ColorTransitionEffect(
-          dotHeight: 8,
-          dotWidth: 8,
+      effect: const ColorTransitionEffect(
+        dotHeight: 8,
+        dotWidth: 8,
         activeDotColor: Color(0xFF738CD1),
         dotColor: Color(0xFF4C6191),
       ),
@@ -81,13 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
-                              'Jane!',
-                              style: GoogleFonts.beVietnamPro(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            const TextHeader(text: 'Jane!'),
                           ],
                         ),
                         const Icon(
@@ -133,13 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 26),
                   Container(
                     margin: const EdgeInsets.only(left: 50),
-                    child: Text(
-                      'Most Popular',
-                      style: GoogleFonts.beVietnamPro(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    child: const TextHeader(text: 'Most Popular'),
                   ),
                   const SizedBox(height: 15),
                   slide(listMovie),
@@ -164,15 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(AppImage.ic_genres),
+                                image: AssetImage(AppImage.icGenres),
                               ),
-                              Text(
-                                'Genres',
-                                style: GoogleFonts.beVietnamPro(
-                                  fontSize: 9,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              const TextSmall(text: 'Genres'),
                             ],
                           ),
                         ),
@@ -189,15 +170,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(AppImage.ic_tvseries),
+                                image: AssetImage(AppImage.icTvseries),
                               ),
-                              Text(
-                                'TV series',
-                                style: GoogleFonts.beVietnamPro(
-                                  fontSize: 9,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              const TextSmall(text: 'TV series'),
                             ],
                           ),
                         ),
@@ -214,15 +189,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(AppImage.ic_movies),
+                                image: AssetImage(AppImage.icMovies),
                               ),
-                              Text(
-                                'Movies',
-                                style: GoogleFonts.beVietnamPro(
-                                  fontSize: 9,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              const TextSmall(text: 'Movies'),
                             ],
                           ),
                         ),
@@ -239,15 +208,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Image(
-                                image: AssetImage(AppImage.ic_theatre),
+                                image: AssetImage(AppImage.icTheatre),
                               ),
-                              Text(
-                                'In Theatre',
-                                style: GoogleFonts.beVietnamPro(
-                                  fontSize: 9,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              const TextSmall(text: 'In Theatre'),
                             ],
                           ),
                         ),
@@ -257,13 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 26),
                   Container(
                     margin: const EdgeInsets.only(left: 50),
-                    child: Text(
-                      'Upcoming releases',
-                      style: GoogleFonts.beVietnamPro(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    child: const TextHeader(text: 'Upcoming releases'),
                   ),
                 ],
               ),
@@ -275,18 +232,18 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
               backgroundColor: const Color(0xFF3e4c76),
-              icon: SvgPicture.asset(AppImage.ic_homescreen),
+              icon: SvgPicture.asset(AppImage.icHomescreen),
               label: ''),
           BottomNavigationBarItem(
               backgroundColor: Colors.red,
-              icon: SvgPicture.asset(AppImage.ic_favorite),
+              icon: SvgPicture.asset(AppImage.icFavorite),
               label: ''),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppImage.ic_ticket), label: ''),
+              icon: SvgPicture.asset(AppImage.icTicket), label: ''),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppImage.ic_account), label: ''),
+              icon: SvgPicture.asset(AppImage.icAccount), label: ''),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppImage.ic_shuffle), label: ''),
+              icon: SvgPicture.asset(AppImage.icShuffle), label: ''),
         ],
       ),
     );
