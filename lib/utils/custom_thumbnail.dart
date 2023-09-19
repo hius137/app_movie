@@ -1,18 +1,25 @@
 import 'package:app_movie/utils/app_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomThumbnail extends StatelessWidget {
   final String imageMovie;
   final String nameMovie;
-  const CustomThumbnail({super.key,required this.imageMovie, required this.nameMovie});
+
+  const CustomThumbnail(
+      {super.key, required this.imageMovie, required this.nameMovie});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 12),
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(30),
             child: Image(
