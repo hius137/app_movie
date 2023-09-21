@@ -33,8 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final String apiKey = '97b7e81bbacb764ede3dc7212818e246';
   List<MovieEntity>? listPopularMovie = [];
   List<MovieEntity>? listUCMovie = [];
-  List<MovieModel> listThumbnailMovie = List.of(dataThumbnailImage);
-  List<MovieModel> listURMovie = List.of(dataURImage);
   int currentIndexThumbnail = 0;
   int currentIndexUR = 0;
   bool isLoading = true;
@@ -61,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  Widget slideThumbnailMoive(List<MovieModel> listThumbnailMovie) {
+  Widget slideThumbnailMoive(List<MovieEntity> listPopularMovie) {
     return CarouselSlider.builder(
       options: CarouselOptions(
           height: 141,
@@ -93,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget slideURMovie(List<MovieModel> listURMovie) {
+  Widget slideURMovie(List<MovieEntity> listUCMovie) {
     return CarouselSlider.builder(
       options: CarouselOptions(
           height: 214,
@@ -217,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 15),
               isLoading
                   ? Center(child: CircularProgressIndicator())
-                  : slideThumbnailMoive(listThumbnailMovie),
+                  : slideThumbnailMoive(listPopularMovie!),
               const SizedBox(height: 17),
               Center(child: dotTSlide()),
               const SizedBox(height: 20),
@@ -238,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 15),
               isLoading
                   ? Center(child: CircularProgressIndicator())
-                  : slideURMovie(listURMovie),
+                  : slideURMovie(listUCMovie!),
               const SizedBox(height: 17.29),
               Center(child: dotURSlide()),
             ],
