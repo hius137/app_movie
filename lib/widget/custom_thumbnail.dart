@@ -2,11 +2,11 @@ import 'package:app_movie/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomThumbnail extends StatelessWidget {
+class CustomThumbnailMovie extends StatelessWidget {
   final String imageMovie;
   final String nameMovie;
 
-  const CustomThumbnail(
+  const CustomThumbnailMovie(
       {super.key, required this.imageMovie, required this.nameMovie});
 
   @override
@@ -19,16 +19,18 @@ class CustomThumbnail extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(30),
             child: Image(
-              image: AssetImage(imageMovie),
+              image: NetworkImage('http://image.tmdb.org/t/p/w500/$imageMovie'),
               fit: BoxFit.cover,
             ),
           ),
         ),
         Positioned(
+          width: 200,
           bottom: 15,
           left: 26,
           child: Text(
-            nameMovie,
+             nameMovie,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.beVietnamPro(
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
           ),
