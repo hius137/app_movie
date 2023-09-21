@@ -10,7 +10,6 @@ Future<List<MovieEntity>?> requestPopularMovie() async {
     MovieResponse data = MovieResponse.fromJson(response.data);
     return data.results;
   } catch (e) {
-    print('error $e');
     return null;
   }
 }
@@ -22,7 +21,6 @@ Future<List<MovieEntity>?> requestUCMovie() async {
     MovieResponse data = MovieResponse.fromJson(response.data);
     return data.results;
   } catch (e) {
-    print('error $e');
     return null;
   }
 }

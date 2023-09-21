@@ -1,7 +1,5 @@
 import 'package:app_movie/apis/api_service.dart';
 import 'package:app_movie/model/entity/movie_entity.dart';
-import 'package:app_movie/model/response/movie_response.dart';
-import 'package:app_movie/model/movie_model.dart';
 import 'package:app_movie/screen/detail_screen.dart';
 import 'package:app_movie/utils/app_image.dart';
 import 'package:app_movie/widget/buttons.dart';
@@ -23,11 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //97b7e81bbacb764ede3dc7212818e246
-  // eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2YzMzE4NTA3ZTk5ZGI2NTc4NDA4MTJmOWM5YzRlNyIsInN
-  // 1YiI6IjY0MjJkNWIxMjNiZTQ2MDBkZjlhMGQ5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9
-  // uIjoxfQ.OjMsaIr-HZsVubndEK2cSjRa9V7IFNSl4Ape5Snv-vA
-
   final Dio dio = Dio();
   final String baseUrl = 'https://api.themoviedb.org/3';
   final String apiKey = '97b7e81bbacb764ede3dc7212818e246';
@@ -69,11 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
               currentIndexThumbnail = index;
             });
           }),
-      itemCount: listPopularMovie!.length,
+      itemCount: listPopularMovie.length,
       itemBuilder: (context, index, realIndex) {
         return CustomThumbnailMovie(
-            imageMovie: listPopularMovie![index].posterPath.toString(),
-            nameMovie: listPopularMovie![index].title.toString());
+            imageMovie: listPopularMovie[index].posterPath.toString(),
+            nameMovie: listPopularMovie[index].title.toString());
       },
     );
   }
@@ -102,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               currentIndexUR = index;
             });
           }),
-      itemCount: listUCMovie!.length,
+      itemCount: listUCMovie.length,
       itemBuilder: (context, index, realIndex) {
         return GestureDetector(
           onTap: () {
@@ -111,11 +104,11 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialPageRoute(
                   builder: (context) => DetailScreen(
                       nameMovie: '',
-                      imageMovie: listUCMovie![index].posterPath.toString())),
+                      imageMovie: listUCMovie[index].posterPath.toString())),
             );
           },
           child: CustomURMovie(
-            imageMovie: listUCMovie![index].posterPath.toString(),
+            imageMovie: listUCMovie[index].posterPath.toString(),
           ),
         );
       },
@@ -193,14 +186,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Container(
                       height: 45,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               left: BorderSide(color: Colors.white30, width: 1))),
                     ),
-                    SizedBox(width: 17),
+                    const SizedBox(width: 17),
                     Image(
                       image: AssetImage(AppImage.icMic),
                     ),
@@ -214,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 15),
               isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : slideThumbnailMoive(listPopularMovie!),
               const SizedBox(height: 17),
               Center(child: dotTSlide()),
@@ -235,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 15),
               isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : slideURMovie(listUCMovie!),
               const SizedBox(height: 17.29),
               Center(child: dotURSlide()),

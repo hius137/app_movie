@@ -24,6 +24,17 @@ class CustomThumbnailMovie extends StatelessWidget {
             ),
           ),
         ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            gradient:
+                const LinearGradient(colors: [Color(0xFF121212), Colors.white10],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter),
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
         Positioned(
           width: 200,
           bottom: 15,
