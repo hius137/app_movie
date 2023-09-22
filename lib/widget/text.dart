@@ -35,3 +35,4 @@ class TextSmall extends StatelessWidget {
     );
   }
 }
+

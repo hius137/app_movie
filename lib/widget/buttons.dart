@@ -13,9 +13,10 @@ class Buttons extends StatelessWidget {
       width: 69,
       height: 95,
       decoration: BoxDecoration(
+        border:  Border.all(color: Colors.white54),
         borderRadius: BorderRadius.circular(15),
-        gradient: const LinearGradient(
-            colors: [Color(0xFF536D96), Color(0xFF5E89A4)]),
+        gradient: LinearGradient(
+            colors: [const Color(0xFF536D96).withOpacity(0.7), const Color(0xFF5E89A4).withOpacity(0.7)]),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

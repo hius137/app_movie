@@ -5,9 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomThumbnailMovie extends StatelessWidget {
   final String imageMovie;
   final String nameMovie;
+  final String imdb;
 
   const CustomThumbnailMovie(
-      {super.key, required this.imageMovie, required this.nameMovie});
+      {super.key, required this.imageMovie, required this.nameMovie, required this.imdb});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class CustomThumbnailMovie extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(3),
                   child: Text(
-                    '8.5',
+                    imdb,
                     style: GoogleFonts.beVietnamPro(
                       fontSize: 6,
                       fontWeight: FontWeight.bold,

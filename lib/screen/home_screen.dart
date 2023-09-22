@@ -7,7 +7,6 @@ import 'package:app_movie/widget/custom_thumbnail.dart';
 import 'package:app_movie/widget/custom_ur_movie.dart';
 import 'package:app_movie/widget/text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,14 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Dio dio = Dio();
-  final String baseUrl = 'https://api.themoviedb.org/3';
-  final String apiKey = '97b7e81bbacb764ede3dc7212818e246';
   List<MovieEntity>? listPopularMovie = [];
   List<MovieEntity>? listUCMovie = [];
   int currentIndexThumbnail = 0;
   int currentIndexUR = 0;
-  bool isLoading = true;
 
   @override
   void initState() {
@@ -40,19 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
     listPopularMovie = await requestPopularMovie();
     if (listPopularMovie != null) {
       setState(() {
-        isLoading = false;
       });
     }
     listUCMovie = await requestUCMovie();
     if (listUCMovie != null) {
       setState(() {
-        isLoading = false;
       });
     }
   }
 
-
-  Widget slideThumbnailMoive(List<MovieEntity> listPopularMovie) {
+  Widget slideThumbnailMovie(List<MovieEntity> listPopularMovie) {
     return CarouselSlider.builder(
       options: CarouselOptions(
           height: 141,
@@ -64,9 +56,22 @@ class _HomeScreenState extends State<HomeScreen> {
           }),
       itemCount: listPopularMovie.length,
       itemBuilder: (context, index, realIndex) {
-        return CustomThumbnailMovie(
-            imageMovie: listPopularMovie[index].posterPath.toString(),
-            nameMovie: listPopularMovie[index].title.toString());
+        return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(
+                    id: listPopularMovie[index].id ?? 0,
+                  ),
+                ),
+              );
+            },
+            child: CustomThumbnailMovie(
+              imdb: listPopularMovie[index].voteAverage.toString(),
+              nameMovie: listPopularMovie[index].title.toString(),
+              imageMovie: listPopularMovie[index].posterPath.toString(),
+            ));
       },
     );
   }
@@ -102,9 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DetailScreen(
-                      nameMovie: '',
-                      imageMovie: listUCMovie[index].posterPath.toString())),
+                  builder: (context) =>
+                      DetailScreen(id: listUCMovie[index].id ?? 0)),
             );
           },
           child: CustomURMovie(
@@ -165,11 +169,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 margin: const EdgeInsets.only(left: 50, right: 50),
-                padding: const EdgeInsets.only(left: 20, top: 5, bottom: 5, right: 20),
+                padding: const EdgeInsets.only(
+                    left: 20, top: 5, bottom: 5, right: 20),
                 decoration: BoxDecoration(
-                    color: const Color(0xFF4F688F),
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Colors.white30, width: 1),
+                  color: const Color(0xFF4F688F),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: Colors.white30, width: 1),
                 ),
                 child: Row(
                   children: [
@@ -191,7 +196,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 45,
                       decoration: const BoxDecoration(
                           border: Border(
-                              left: BorderSide(color: Colors.white30, width: 1))),
+                              left:
+                                  BorderSide(color: Colors.white30, width: 1))),
                     ),
                     const SizedBox(width: 17),
                     Image(
@@ -206,9 +212,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const TextHeader(text: 'Most Popular'),
               ),
               const SizedBox(height: 15),
-              isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : slideThumbnailMoive(listPopularMovie!),
+              if (listPopularMovie != null && listPopularMovie!.isNotEmpty)
+                slideThumbnailMovie(listPopularMovie ?? []),
               const SizedBox(height: 17),
               Center(child: dotTSlide()),
               const SizedBox(height: 20),
@@ -227,9 +232,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const TextHeader(text: 'Upcoming releases'),
               ),
               const SizedBox(height: 15),
-              isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : slideURMovie(listUCMovie!),
+              if (listUCMovie != null && listUCMovie!.isNotEmpty)
+                slideURMovie(listUCMovie ?? []),
               const SizedBox(height: 17.29),
               Center(child: dotURSlide()),
             ],
