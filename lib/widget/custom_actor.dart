@@ -1,3 +1,4 @@
+import 'package:app_movie/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +23,7 @@ class CustomActor extends StatelessWidget {
           child: Image(
             width: 60,
             height: 70,
-            image: NetworkImage('https://image.tmdb.org/t/p/w500/$imageActor'),
+            image: NetworkImage(imageActor.isEmpty ? AppImage.imgActor1 : 'https://image.tmdb.org/t/p/w500/$imageActor'),
             fit: BoxFit.cover,
           ),
         ),

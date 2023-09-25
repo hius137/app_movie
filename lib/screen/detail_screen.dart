@@ -11,7 +11,6 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.id});
-
   final int id;
 
   @override
@@ -20,7 +19,7 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   DetailMovieResponse? detailMovieResponse;
-  List<Cast>? listActor = [];
+  List<Cast> listActor = [];
   bool isLoading = true;
   int currentIndex = 0;
 
@@ -39,10 +38,8 @@ class _DetailScreenState extends State<DetailScreen> {
       });
     }
 
-    listActor = await requestCreditsMovie(widget.id);
-    if (listActor != null) {
+    listActor = (await requestCreditsMovie(widget.id))!;
       setState(() {});
-    }
   }
 
   Widget slideActor(List<Cast> listActor) {
@@ -121,7 +118,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Navigator.of(context).pop();
                   },
                   icon: SvgPicture.asset(
-                    AppImage.ic_back,
+                    AppImage.icBack,
                   ),
                 ),
               ),
@@ -221,9 +218,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                       const Spacer(),
-                      Image(image: AssetImage(AppImage.ic_share)),
+                      Image(image: AssetImage(AppImage.icShare)),
                       const SizedBox(width: 10),
-                      Image(image: AssetImage(AppImage.ic_favorite)),
+                      Image(image: AssetImage(AppImage.icFavorite)),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -248,17 +245,28 @@ class _DetailScreenState extends State<DetailScreen> {
                               context: context,
                               builder: (BuildContext context) {
                                 return Container(
-                                  height: 300,
+                                  padding: EdgeInsets.all(15),
+                                  height: 500,
                                   decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20)),
                                     gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFF2C5776),
-                                        Color(0xFF4E4376)
-                                      ],
+                                    colors: [Color(0xFF2C5776), Color(0xFF4E4376)],),
+                                  ),
+                                  child: GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisSpacing: 2,
+                                      crossAxisCount: 5,
+                                      mainAxisSpacing: 2,
+                                      childAspectRatio: 0.75
                                     ),
+                                    itemCount: listActor.length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      return CustomActor(
+                                        imageActor: listActor[index].profilePath ?? "",
+                                        nameActor: listActor[index].name ?? "",
+                                        characterActor: listActor[index].character ?? "");
+                                    },
                                   ),
                                 );
                               });
@@ -274,7 +282,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ],
                   ),
                   const SizedBox(height: 18),
-                  if (listActor != null && listActor!.isNotEmpty)
+                  if (listActor != null && listActor.isNotEmpty)
                     slideActor(listActor ?? []),
                 ],
               ),

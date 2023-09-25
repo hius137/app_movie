@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               currentIndexThumbnail = index;
             });
           }),
-      itemCount: listPopularMovie.length,
+      itemCount: 5,
       itemBuilder: (context, index, realIndex) {
         return GestureDetector(
             onTap: () {
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget dotTSlide() {
     return AnimatedSmoothIndicator(
       activeIndex: currentIndexThumbnail,
-      count: listPopularMovie!.length,
+      count: 5,
       effect: const ColorTransitionEffect(
         dotHeight: 8,
         dotWidth: 8,
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
               currentIndexUR = index;
             });
           }),
-      itemCount: listUCMovie.length,
+      itemCount: 5,
       itemBuilder: (context, index, realIndex) {
         return GestureDetector(
           onTap: () {
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget dotURSlide() {
     return AnimatedSmoothIndicator(
       activeIndex: currentIndexUR,
-      count: listUCMovie!.length,
+      count: 5,
       effect: const ColorTransitionEffect(
         dotHeight: 8,
         dotWidth: 8,
